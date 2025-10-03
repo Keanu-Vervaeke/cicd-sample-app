@@ -27,8 +27,8 @@ node {
             mkdir tempdir
             mkdir -p tempdir/templates
             mkdir -p tempdir/static
-            cp -r templates/* tempdir/templates/
-            cp -r static/* tempdir/static/
+            cp -r ./cicd-sample-app/templates/* tempdir/templates/
+            cp -r ./cicd-sample-app/static/* tempdir/static/
         '''
 
         
