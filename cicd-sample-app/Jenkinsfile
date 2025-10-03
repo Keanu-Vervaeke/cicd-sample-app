@@ -1,0 +1,17 @@
+node {
+    stage('Preparation') {
+        catchError(buildResult: 'SUCCESS') {
+            echo 'Cleaning up any old containers...'
+            sh 'docker stop samplerunning'
+            sh 'docker rm samplerunning'
+        }
+    }
+    stage('Build') {
+        echo 'Building the Docker image...'
+        build 'BuildSampleApp'
+    }
+    stage('Results') {
+        echo 'Running tests...'
+        build 'TestSampleApp'
+    }
+}
