@@ -1,18 +1,53 @@
 node {
-    stage('Preparation') {
+    stage('Opkuisen') {
         catchError(buildResult: 'SUCCESS') {
-            echo 'Cleaning up any old containers...'
-            sh 'docker stop samplerunning'
-            sh 'docker rm samplerunning'
+            echo 'Opkuisen'
+            sh 'docker stop samplerunning || true'
+            sh 'docker rm samplerunning || true'
+            sh 'docker rmi sampleapp || true'
+            sh 'rm -rf tempdir'
         }
     }
+
     stage('Build') {
-        echo 'Building the Docker image...'
-        build 'BuildSampleApp'
+        echo 'Directory builden'
+
+        // Zoals in sample-app.sh
+        sh '
+            mkdir tempdir
+            mkdir -p tempdir/templates
+            mkdir -p tempdir/static
+            cp ./cicd-sample-app/sample_app.py tempdir/
+            cp -r ./cicd-sample-app/templates/* tempdir/templates/
+            cp -r ./cicd-sample-app/static/* tempdir/static/
+        '
+
+        
+        sh '
+            cat > tempdir/Dockerfile << _EOF_
+            FROM python
+            RUN pip install flask
+            COPY  ./static /home/myapp/static/
+            COPY  ./templates /home/myapp/templates/
+            COPY  sample_app.py /home/myapp/
+            EXPOSE 5050
+            CMD python /home/myapp/sample_app.py
+ _EOF_
+        '
+
+        echo 'Build docker image'
+        sh 'cd tempdir && docker build -t sampleapp .'
     }
-    stage('Results') {
-        echo 'Running tests...'
-        build 'TestApp'
+
+    stage('Docker runnen') {
+        echo 'Running container...'
+        sh 'docker run -d -p 5050:5050 --name samplerunning sampleapp'
+        sh 'docker ps -a'
+    }
+
+    stage('Tests') {
+        echo 'Curl om te testen'
+        sh 'sleep 5'
+        sh 'curl -f http://192.168.56.20:5050 || echo "Check of de container wel draait"'
     }
 }
-
