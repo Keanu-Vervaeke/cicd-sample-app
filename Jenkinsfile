@@ -14,4 +14,8 @@ node {
         echo 'Running the Docker container...'
         sh 'docker run -d -p 3000:3000 --name todoapp-running docker/getting-started:latest'
     }
+    stage('Test') {
+        echo 'Test'
+        sh 'docker ps'
+    }
 }
