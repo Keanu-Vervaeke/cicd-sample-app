@@ -1,8 +1,4 @@
 node {
-
-
-stages {
-
     stage('Build') {
         steps {
             sh "docker build -t getting-started ."
@@ -21,7 +17,4 @@ stages {
             sh "docker ps | grep getting-started"
         }
     }
-}
-
-
 }
