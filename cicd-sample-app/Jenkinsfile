@@ -1,4 +1,10 @@
 node {
+
+    stage('Checkout') {
+    checkout scm
+}
+
+
     stage('Opkuisen') {
         catchError(buildResult: 'SUCCESS') {
             echo 'Opkuisen'
