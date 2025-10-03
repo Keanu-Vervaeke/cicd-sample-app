@@ -1,1 +1,16 @@
-body {background: rebeccapurple;}
+body {
+    background: rebeccapurple;
+    color: white;
+    font-family: sans-serif;
+}
+
+header, footer {
+    text-align: center;
+    margin: 1em 0;
+}
+
+nav a {
+    color: #ffd700;
+    margin: 0 10px;
+    text-decoration: none;
+}
