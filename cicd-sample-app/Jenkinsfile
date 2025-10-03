@@ -10,19 +10,19 @@ node {
             echo 'Opkuisen'
             sh 'docker stop samplerunning || true'
             sh 'docker rm samplerunning || true'
-            sh 'docker rmi app || true'
+            sh 'docker rmi sampleapp || true'
             sh 'rm -rf tempdir'
         }
     }
 
 
     stage('Build') {
-        sh 'docker build -t app ./cicd-sample-app'
+        sh 'docker build -t sampleapp ./cicd-sample-app'
     }
 
     stage('Docker runnen') {
         echo 'Running container...'
-        sh 'docker run -d -p 5050:5050 --name samplerunning app'
+        sh 'docker run -d -p 5050:5050 --name samplerunning sampleapp'
         sh 'docker ps -a'
     }
 
