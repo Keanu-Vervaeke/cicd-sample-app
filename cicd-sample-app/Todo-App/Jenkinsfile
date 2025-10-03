@@ -1,0 +1,27 @@
+node {
+
+
+stages {
+
+    stage('Build') {
+        steps {
+            sh "docker build -t getting-started ."
+        }
+    }
+
+    stage('Run Container') {
+        steps {
+            sh "docker run -t -d -p 3000:3000 --name getting-started "    
+        
+        }
+    }
+
+    stage('Verify Running App') {
+        steps {
+            sh "docker ps | grep getting-started"
+        }
+    }
+}
+
+
+}
