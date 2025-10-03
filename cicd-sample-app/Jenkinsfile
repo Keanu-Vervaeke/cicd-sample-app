@@ -15,9 +15,6 @@ node {
         }
     }
 
-    stage('Debug paths') {
-    sh 'pwd && ls -l && ls -l templates && ls -l static'
-}
 
     stage('Build') {
         echo 'Directory builden'
