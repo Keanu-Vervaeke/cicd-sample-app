@@ -7,7 +7,7 @@ node {
 
     stage('Opkuisen') {
         catchError(buildResult: 'SUCCESS') {
-            echo 'Opkuisen'
+            echo 'Opkuisen oude containers/images'
             sh 'docker stop samplerunning || true'
             sh 'docker rm samplerunning || true'
             sh 'docker rmi sampleapp || true'
@@ -17,11 +17,12 @@ node {
 
 
     stage('Build') {
+        echo 'Image maken'
         sh 'docker build -t sampleapp ./cicd-sample-app'
     }
 
     stage('Docker runnen') {
-        echo 'Running container...'
+        echo 'Container runnen'
         sh 'docker run -d -p 5050:5050 --name samplerunning sampleapp'
         sh 'docker ps -a'
     }
