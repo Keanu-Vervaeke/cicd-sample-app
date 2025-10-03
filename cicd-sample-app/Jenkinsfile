@@ -12,6 +12,6 @@ node {
     }
     stage('Results') {
         echo 'Running tests...'
-        build 'TestSampleApp'
+        build 'TestApp'
     }
 }
