@@ -10,8 +10,8 @@ mkdir tempdir/templates
 mkdir tempdir/static
 
 cp ./cicd-sample-app/sample_app.py tempdir/.
-cp -r templates/* tempdir/templates/.
-cp -r static/* tempdir/static/.
+cp -r ./cicd-sample-app/templates/* tempdir/templates/.
+cp -r ./cicd-sample-app/static/* tempdir/static/.
 
 cat > tempdir/Dockerfile << _EOF_
 FROM python
