@@ -13,17 +13,17 @@ node {
         echo 'Directory builden'
 
         // Zoals in sample-app.sh
-        sh '
+        sh '''
             mkdir tempdir
             mkdir -p tempdir/templates
             mkdir -p tempdir/static
             cp ./cicd-sample-app/sample_app.py tempdir/
             cp -r ./cicd-sample-app/templates/* tempdir/templates/
             cp -r ./cicd-sample-app/static/* tempdir/static/
-        '
+        '''
 
         
-        sh '
+        sh '''
             cat > tempdir/Dockerfile << _EOF_
             FROM python
             RUN pip install flask
@@ -33,7 +33,7 @@ node {
             EXPOSE 5050
             CMD python /home/myapp/sample_app.py
  _EOF_
-        '
+        '''
 
         echo 'Build docker image'
         sh 'cd tempdir && docker build -t sampleapp .'
