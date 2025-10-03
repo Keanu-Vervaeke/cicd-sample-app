@@ -3,14 +3,14 @@ from flask import Flask
 from flask import request
 from flask import render_template
 
-sampleapp = Flask(__name__)
+sample = Flask(__name__)
 
-@sampleapp.route("/")
+@sample.route("/")
 def home():
     client_ip = request.remote_addr
     return render_template("index.html", client_ip=client_ip)
 
-@sampleapp.route("/about")
+@sample.route("/about")
 def about():
     return render_template("about.html")
 
