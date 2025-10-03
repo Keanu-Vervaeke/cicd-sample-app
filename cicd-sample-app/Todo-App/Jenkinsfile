@@ -1,6 +1,6 @@
 node {
     stage('Build') {
-        sh "docker build -t getting-started ."
+        sh "docker build -t todoapp:latest ."
  
     }
 
